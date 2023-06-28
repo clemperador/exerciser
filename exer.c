@@ -10,7 +10,7 @@ void clear(){
 }
 
 char *filestring(char* argv)
-{ // Initialise les fichiers de texte fournis, n étant le fichier donné comme argument au terminal
+{ // Creates a string out of a text file
   char c;
   int cpt = 0;
 
@@ -21,7 +21,6 @@ char *filestring(char* argv)
     cpt = cpt + 1;
   }
   fclose(f);
-  /* Stocke le texte du fichier dans un string*/
   char *texte = malloc((cpt + 1) * sizeof(char));
   texte[cpt] = '\0';
   f = fopen(argv, "r");
@@ -35,7 +34,7 @@ char *filestring(char* argv)
   return texte;
 }
 
-void remove_spaces(char* s) { /* Mon code pour résoudre les expressions n'accepte pas des espaces.*/
+void remove_spaces(char* s) { /* My NPI Calculator doesn't work with string that contains backspaces */
     char* d = s;
     do {
         while (*d == ' ') {
@@ -125,7 +124,7 @@ char* expression(int n, int d, int lvl){ // n = number of numbers per expression
             int s1 = 1 +(rand() % l);
             int s2 = 1 +(rand() % l);
 
-            while (s1 % s2 != 0 || s1 == s2 || s2 == 1){ // s2 ne peut pas être 1, s2 ne peut pas être s1 (trop faciles).
+            while (s1 % s2 != 0 || s1 == s2 || s2 == 1){ // s2 can't equal s1. (too easy!)
             s1 = 1 +(rand() % l);
             s2 = 1 +(rand() % l);
             }
@@ -299,31 +298,31 @@ void polynomials(int d, int n){ //d = max digits per coefficient. n number of ex
     fprintf(solfile, "%s", solutions);
     fclose(solfile);
 
-    printf("Fichier 'expressions.txt' sauvegardé avec succes avec %d problèmes à résoudre\n", n);
+    printf("'expressions.txt' file saved with %d problems to solve.\n", n);
 }
 
 void arith_interac(){   
     char opt[10];
     int n, d, k, lvl;
     clear();
-    printf("-GÉNERATION DE PROBLÈMES D'ARITHMETIQUE:-\n");
+    printf("-ARITHMETICAL PROBLEMS GENERATOR:-\n");
 
-    printf("\nQuantité de calculs à faire par problème:\n");
+    printf("\nCalculations per problem:\n");
     scanf("%s", opt);
     n = atoi(opt);
 
     strcpy(opt,"");
-    printf("\nQuantité maximale de chiffres par nombre:\n");
+    printf("\nMax digits per number:\n");
     scanf("%s", opt);
     d = atoi(opt);
 
     strcpy(opt,"");
-    printf("\nQuantité d'expressions à génerer:\n");
+    printf("\nProblems to generate:\n");
     scanf("%s", opt);
     k = atoi(opt);
 
     strcpy(opt,"");
-    printf("\nChoisir niveau. \n0: Le Résultat de l'expression et les sous-expressions sont positifs.\n1: Expression peut avoir des nombres négatifs\nVotre choix:\n");
+    printf("\nChoose level. \n0: The problem's result and it's sub-problems will always be positive.\n1: Results can be negative.\nYour choice:\n");
     scanf("%s", opt);
     lvl = atoi(opt);
 
@@ -335,13 +334,13 @@ void poly_interac(){
     char opt[10];
     int d, n;
     clear();
-    printf("-GÉNERATION D'ÉQUATIONS DE SECOND DEGRÉ:-\n");
-    printf("\nChiffres maximales par coefficient:\n");
+    printf("-SECOND DEGREE EQUATIONS GENERATOR:-\n");
+    printf("\nMax digits per coefficient:\n");
     scanf("%s", opt);
     d = atoi(opt);
 
     strcpy(opt,"");
-    printf("\nQuantité de polynômes à génerer:\n");
+    printf("\nNumber of polynomials to generate:\n");
     scanf("%s", opt);
     n = atoi(opt);
 
@@ -354,8 +353,8 @@ void interactive(){
     char opt[10];
 
     while (t){
-        printf("Que voulez vous faire?\n1: Arithmétique (Generation de Problèmes)\n2: Géneration Équations Quadratiques\n3: Afficher dernières expressions crées.\n4: Afficher réponses.\n5: Fermer.");
-        printf("\nVotre choix:\n");
+        printf("What do you wish to do?\n1: Arithmetics (Problem Generation)\n2: Quadratic Equation Genrator\n3: Print last generation:\n4: Print answers:\n5: Close.");
+        printf("\nYour choice:\n");
         scanf("%s", opt);
         if(atoi(opt) == 1){
         arith_interac();
